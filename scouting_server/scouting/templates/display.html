@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>紀錄者姓名</th>
+            <th>比賽場次</th>
+            <th>隊伍編號</th>
+            <th>未上場比賽</th>
+            <th>離開起始區域</th>
+            <th>自動Amp數量</th>
+            <th>自動Speaker數量</th>
+            <th>手動Amp數量</th>
+            <th>手動Speaker數量</th>
+        </tr>
+        {% for x in data %}
+        <tr>
+            <td>{{ x.scouter_name }}</td>
+            <td>{{ x.game_number }}</td>
+            <td>{{ x.team_number }}</td>
+            <td>{{ x.not_participated }}</td>
+            <td>{{ x.auto_taxi }}</td>
+            <td>{{ x.auto_amp }}</td>
+            <td>{{ x.auto_speaker }}</td>
+            <td>{{ x.teleop_amp }}</td>
+            <td>{{ x.teleop_speaker }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
