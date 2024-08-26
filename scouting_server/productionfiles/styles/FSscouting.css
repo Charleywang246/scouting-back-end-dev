@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-width: 300px;
+  color: white;
+  background-color: #000000;
+  font-family: "Times New Roman", Times, serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  margin: 15px 0px;
+  min-height: 64px;
+  color: rgb(0, 213, 134);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header p {
+  font-size: 64px;
+}
+
+.div {
+  width: 100%;
+  border: 3px solid white;
+  margin: 15px 0px;
+}
+.div > p {
+  font-size: 32px;
+  text-align: center;
+}
+.div .box {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.div .box .leftBox {
+  width: 47.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.div .box .leftBox p {
+  text-align: end;
+}
+.div .box .rightbox {
+  width: 47.5%;
+}
+.div .box .rightbox input[type=text] {
+  width: 80px;
+  text-align: center;
+}
+.div .box .radio input {
+  height: 18px;
+  position: relative;
+  top: 5px;
+}
+.div .box .counter .counter_button {
+  color: #000000;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  width: 19.2px;
+  height: 100%;
+}
+.div .page_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.div .page_button button {
+  margin: 15px;
+  font-size: 32px;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+footer #sponsors {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (max-width: 500px) {
+  footer #sponsors {
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 500px) {
+  footer #sponsors {
+    flex-direction: row;
+  }
+}
+footer #sponsors p {
+  font-size: 32px;
+}
+footer #sponsors a img {
+  height: 10vh;
+  min-height: 72px;
+}/*# sourceMappingURL=FSscouting.css.map */

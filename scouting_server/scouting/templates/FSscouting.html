@@ -1,181 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ch">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Future Shock Scouting APP</title>
-    <script type="text/javascript" src="D:\桌面\FRC\programming\scouting back-end dev\scouting_server\scouting\templates\scripts\config.js"></script>
-    <script type="text/javascript" src="D:\桌面\FRC\programming\scouting back-end dev\scouting_server\scouting\templates\scripts\FSscouting.js"></script>
-    <script>
-        let current_page = "prematch"
-        var config = JSON.parse(game_config);
-
-        function last_page () {
-            switch (current_page) {
-                case "auto":
-                    current_page = "prematch"
-                    break
-                case "teleop":
-                    current_page = "auto"
-                    break
-                case "endgame":
-                    current_page = "teleop"
-                    break
-                case "result":
-                    current_page = "endgame"
-                    break
-            }
-            change_display();
-        }
-
-        function next_page () {
-            if (!verify()) return;
-            switch (current_page) {
-                case "prematch":
-                    current_page = "auto"
-                    if (document.getElementById("not_participated").checked) current_page = "result";
-                    break
-                case "auto":
-                    current_page = "teleop"
-                    break
-                case "teleop":
-                    current_page = "endgame"
-                    break
-                case "endgame":
-                    current_page = "result"
-                    break
-                case "result":
-                    reset()
-                    current_page = "prematch"
-                    break
-            }
-            change_display();
-        }
-
-        function verify () {
-            for (const part in config[current_page]) {
-                type = config[current_page][part].type
-                if (type == "text" && document.getElementById(config[current_page][part].id).value == "") {
-                    alert(config[current_page][part].text + "不可空白"); return false;
-                }
-                if (type == "radio" && document.querySelector("[name='" + config[current_page][part].id + "']:checked") == null) {
-                    alert(config[current_page][part].text + "不可空白"); return false;
-                }
-            }
-            return true
-        }
-
-        function change_display() {
-            switch (current_page) {
-                case "prematch":
-                    document.getElementById("prematch").setAttribute("style", "");
-                    document.getElementById("auto").setAttribute("style", "display: none;");
-                    document.getElementById("teleop").setAttribute("style", "display: none;");
-                    document.getElementById("endgame").setAttribute("style", "display: none;");
-                    document.getElementById("result").setAttribute("style", "display: none;");
-                    break;
-                case "auto":
-                    document.getElementById("prematch").setAttribute("style", "display: none;");
-                    document.getElementById("auto").setAttribute("style", "");
-                    document.getElementById("teleop").setAttribute("style", "display: none;");
-                    document.getElementById("endgame").setAttribute("style", "display: none;");
-                    document.getElementById("result").setAttribute("style", "display: none;");
-                    break;
-                case "teleop":
-                    document.getElementById("prematch").setAttribute("style", "display: none;");
-                    document.getElementById("auto").setAttribute("style", "display: none;");
-                    document.getElementById("teleop").setAttribute("style", "");
-                    document.getElementById("endgame").setAttribute("style", "display: none;");
-                    document.getElementById("result").setAttribute("style", "display: none;");
-                    break;
-                case "endgame":
-                    document.getElementById("prematch").setAttribute("style", "display: none;");
-                    document.getElementById("auto").setAttribute("style", "display: none;");
-                    document.getElementById("teleop").setAttribute("style", "display: none;");
-                    document.getElementById("endgame").setAttribute("style", "");
-                    document.getElementById("result").setAttribute("style", "display: none;");
-                    break;
-                case "result":
-                    document.getElementById("prematch").setAttribute("style", "display: none;");
-                    document.getElementById("auto").setAttribute("style", "display: none;");
-                    document.getElementById("teleop").setAttribute("style", "display: none;");
-                    document.getElementById("endgame").setAttribute("style", "display: none;");
-                    document.getElementById("result").setAttribute("style", "");
-                    break;
-            }
-        }
-
-        function minus (id) {
-            const e = document.getElementById(id);
-            e.value = Number(e.value) - 1;
-        }
-
-        function plus (id) {
-            const e = document.getElementById(id);
-            e.value = Number(e.value) + 1;
-        }
-
-        function uploadData() {
-            var form = document.createElement("form");
-            form.action = "";
-            form.method = "post";
-            for (const section in config) {
-                if (document.getElementById("not_participated").checked && section != "prematch") break;
-                for (const part in config[section]) {
-                    var e = document.createElement("input");
-                    e.type = "hidden";
-                    e.name = config[section][part].id;
-                    switch (config[section][part].type) {
-                        case "text":
-                        case "textarea":
-                        case "counter":
-                            e.value = document.getElementById(config[section][part].id).value;
-                            break;
-                        case "radio":
-                            e.value = document.querySelector("[name='" + config[section][part].id + "']:checked").value;
-                            break;
-                        case "checkbox":
-                            e.value = document.getElementById(config[section][part].id).checked;
-                            break;
-                    }
-                    form.appendChild(e.cloneNode());
-                }
-            }
-            form.submit()
-        }
-
-        function reset () {
-            for (const section in config) {
-                for (const part in config[section]) {
-                    switch (config[section][part].type) {
-                        case "text":
-                            if(config[section][part].id == "scouter_name") continue;
-                            if(config[section][part].id == "game_number") {
-                                document.getElementById(config[section][part].id).value++;
-                                continue
-                            }
-                            document.getElementById(config[section][part].id).value = "";
-                            break;
-                        case "textarea":
-                            document.getElementById(config[section][part].id).value = "";
-                            break;
-                        case "checkbox":
-                            document.getElementById(config[section][part].id).checked = false;
-                            break;
-                        case "counter":
-                            document.getElementById(config[section][part].id).value = 0;
-                            break;
-                    }
-                }
-            }
-            current_page = "prematch";
-            change_display();
-        }
-
-    </script>
-    <link type="text/css" rel="stylesheet" href="D:\桌面\FRC\programming\scouting back-end dev\scouting_server\scouting\templates\styles\FSscouting.css">
+    <script src="{% static 'scripts/config.js' %}"></script>
+    <script src="{% static 'scripts/FSscouting.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'styles/FSscouting.css' %}">
 </head>
 <body>
+
+    <p id="current_page" style="display: none;">prematch</p>
 
     <header>
         <p id="game_name"></p>
@@ -191,11 +27,15 @@
 
     <div class="div" id="result" style="display: none;"></div>
 
+    <form action="" method="post" id="form">
+        {% csrf_token %}
+    </form>
+
     <footer>
         <div id="sponsors">
             <p>Sponsors: </p>
-            <a href="https://www.tsmc.com/english" target="_blank"><img src="D:\桌面\FRC\programming\scouting back-end dev\scouting_server\scouting\templates\images\TSMC.webp" alt="TSMC"></a>
-            <a href="https://www.milwaukeetool.asia/?redirect=no" target="_blank"><img src="D:\桌面\FRC\programming\scouting back-end dev\scouting_server\scouting\templates\images\Milwaukee.svg" alt="Milwaukee"></a>
+            <a href="https://www.tsmc.com/english" target="_blank"><img src="{% static 'images/TSMC.webp' %}" alt="TSMC"></a>
+            <a href="https://www.milwaukeetool.asia/?redirect=no" target="_blank"><img src="{% static 'images/Milwaukee.svg' %}" alt="Milwaukee"></a>
         </div>
         <p>Scounting APP made by 7130 Future Shock</p>
     </footer>

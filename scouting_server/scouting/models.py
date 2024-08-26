@@ -2,7 +2,7 @@ from django.db import models
 
 class GameInput(models.Model):
     scouter_name = models.CharField(max_length=10)
-    speaker_count = models.PositiveIntegerField()
+    game_number = models.PositiveIntegerField()
     team_number = models.PositiveIntegerField()
     not_participated = models.BooleanField()
     auto_taxi = models.BooleanField()
